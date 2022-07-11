@@ -1,34 +1,185 @@
 {
   "compilerOptions": {
+    // khi biên dịch từ ts -> js thì sẽ là phiên bản nào
+    // esnext: luôn chỉ vào phiên bản tiếp theo cảu js
     "target": "esnext",
+    // những file trong chương trình sẽ là esnext
     "module": "esnext",
+    // đảm bảo những file luôn ở chế độ nghiêm ngoặc
     "strict": true,
+    /**
+     *  chuyển từ tsx -> jsx
+        step1 : extension .tsx
+        step2 : config on jsx trong tsconfig.json
+        mode: 
+          preseve : vẫn giữ nguyên code khi dưa đến phần babel , đầu ra là jsx
+            <div> -> <div> 
+          react :  chuyển qua React.createElement , không chuyển đổi qua jsx , đầu ra sẽ là file js
+            <div> -> React.createElement("div")
+          react-native: giống preseve , nhưng đầu ra sẽ là js
+             <div> -> <div>
+     */
     "jsx": "preserve",
+    // lấy những function helper trong tslib , những helper này đã được tối ưu kích cỡ
+    "importHelpers": true,
+    /**
+      + https://www.typescriptlang.org/docs/handbook/module-resolution.html#relative-vs-non-relative-module-imports
+
+      có 2 loại đường dẫn 
+        relative (1)
+        non-relative (2)
+    
+      có 2 loại moudule
+        Node
+          giả sử trong /root/abc/moduleA có request './moduleB'
+          (1)
+            step1 : nó sẽ tìm trong đường dẫn thư mục đó có file name là .js , .json , .node hay không
+            step2 : nó sẽ tìm trong fodel moduleB , tìm kiếm package.json và lấy "main" : "path_file" làm đường dẫn
+            step3 : nó sẽ tìm trong fodel mouduleB , tìm file index.js hoặc index.node
+          (2)
+            nó sẽ tìm kiếm trong node_module của fodel đang đứng , và nó sẽ nhảy ra ngoài fodel cha,
+             thực hiện đến khi tìm thấy
+             step1: 
+                    nó sẽ tìm kiếm trong /root/abc/node_modules/moduleB.js
+                    nó sẽ tìm kiếm trong /root/abc/node_modules/moduleB/package.json // tìm "main" : "path_file"
+                    nó sẽ tìm kiếm trong /root/abc/node_modules/moduleB/index.js
+              ... 
+              step end:
+                    nó sẽ tìm kiếm trong /node_modules/moduleB.js
+                    nó sẽ tìm kiếm trong /node_modules/moduleB/package.json // tìm "main" : "path_file"
+                    nó sẽ tìm kiếm trong /node_modules/moduleB/index.js
+        Class
+          (1) : tìm trực tiếp trong đường dẫn đã chỉ định
+          (2) : tìm kiếm sẽ đi theo cây fodel
+            vd : /root/src/folder
+                 /root/src
+                 /root
+      
+
+        typescript sẽ dựa vào Node.js run time để timg kiếm những file hoặc fodel , ts sẽ sử dụng moudule Node theo mặc định
+        nó tìm kiếm giống mô tả ở trên nhưng giờ sẽ là những đuôi file : .ts , .tsx , .d.ts
+      
+    */
     "moduleResolution": "node",
+    /** 
+        https://www.typescriptlang.org/docs/handbook/decorators.html
+        
+        thay đổi , chú thích các thành phần trong 1 class , method , accessor , property , parameter
+        kí hiệu là @expression , với expression là 1 method được gọi trong thời gian runtime
+
+        Decorator Factories:
+          Đây là 1 dạng decorator custom , return về 1 function trong thời gian runtime
+          ex:
+            function color(value: string) {
+              return function (target) {
+              };
+            }
+        
+        Decorator Composition
+          Đây là 1 dạng multi decorator 
+           + được gọi hàm từ trên xuống dưới
+           + kết qyả trả về là từ dưới lên trên
+
+        Decorator Evaluation
+            thứ tự ưu tiên của decorator trong class
+              + các thành viên bình thường của class
+              + các thành viên static class
+              + constructor của class
+              + cả 1 class 
+        
+        class decorator
+        
+            được định nghĩa trước 1 class , nhằm thay đổi , quan sát , constructỏ của class đó
+            với những thuộc tính được thêm , không thể gọi nó , bởi vì những thuộc tính này chỉ tông tại trong thời gian runtime
+        
+        method decorator
+          sẽ nhận 3 tham số trong (target: any , key: string : descriptor: PropertyDescriptor)
+        
+        accesstor decorator
+          cũng nhận những tham số như method
+        
+
+        /// đọc không thể hiểu nổi đoạn phía dưới
+    */
     "experimentalDecorators": true,
+    /**
+
+        https://www.testim.io/blog/typescript-skiplibcheck/
+
+        bỏ qua những thông báo lỗi cho những file không hợp lệ trong d.ts hoặc node_modules
+        Nhưng không có nghĩa là nó hoàn toàn bỏ qua lỗi của những file này , chỉ file tsc 
+        mới bỏ qua những lỗi đó
+        
+        Những lỗi được bỏ qua như là kiểu kiểu dữ liệu không hợp lệ bởi thư viện bên ngoài , hoặc
+        lỗi không tương thích giữa các thư viện với nhau , nó sẽ error lúc run time
+
+        Lợi ích
+        Làm giảm thời gian biên dịch những code base lớn
+
+    */
     "skipLibCheck": true,
+    /**
+      https://itecnote.com/tecnote/typescript-understanding-esmoduleinterop-in-tsconfig-file/
+      hỗ trợ common js cho chương trình
+    */
     "esModuleInterop": true,
+    /**
+       https://itecnote.com/tecnote/typescript-understanding-esmoduleinterop-in-tsconfig-file/
+      hỗ trợ import mà không cần export default
+    */
     "allowSyntheticDefaultImports": true,
+    /**
+      https://www.typescriptlang.org/tsconfig#forceConsistentCasingInFileNames
+      phân biệt tên import chữ cái hoa và thường
+    */
     "forceConsistentCasingInFileNames": true,
+    /**
+      https://www.typescriptlang.org/tsconfig#useDefineForClassFields
+    */
     "useDefineForClassFields": true,
+    /**
+      https://www.typescriptlang.org/tsconfig#sourceMap
+      cho phép tạo ra những file được chuyển đổi qua js , để dễ dàng debug và sửa lỗi hơn
+    */
     "sourceMap": true,
+    /**
+      https://www.typescriptlang.org/tsconfig#baseUrl
+
+      là đường dẫn mặc định đại diện cho path của chương trình
+        "baseUrl": "./A"
+        root 
+          A
+            ├── ex.ts
+            ├── hello
+            │   └── world.ts
+            └── tsconfig.json
+        import {hellword} from 'hello/world' <=> baseUrl/hello/world
+    */
     "baseUrl": ".",
-    "types": [
-      "webpack-env",
-      "jest"
-    ],
+    /**
+      load những api cần thiết cho chương trình
+    */
+    "types": ["webpack-env", "jest", "node"],
+    /**
+      https://www.typescriptlang.org/docs/handbook/module-resolution.html#additional-module-resolution-flags
+
+      nếu việc sử dụng baseUrl không được tìm thấy , thì nó sẽ sử dụng paths
+      đây là 1 mảng về đường dẫn , giá trị đặt trước sẽ test trước
+
+    */
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    /**
+      https://www.typescriptlang.org/tsconfig#lib
+      thêm ai cho chương trình
+    */
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
+  /**
+    https://www.typescriptlang.org/tsconfig#include
+    chỉ định những  fodel , file sẽ được chương trình thực thi
+  */
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
@@ -36,7 +187,18 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  /**
+    https://www.typescriptlang.org/tsconfig#exclude
+    chỉ định những  fodel , file sẽ được chương trình không thực thi
+  */
+  "exclude": ["node_modules"]
+
+  /**
+    
+    files : [] chỉ định những một số lượng file được thêm vào
+
+    https://wallis.dev/blog/typescript-project-references
+    references : lấy những đường dẫn , nơi đó có dữ liệu mà chương trình cần dùng , làm cho chương trình giảm thiểu code hơn
+    
+  */
 }
