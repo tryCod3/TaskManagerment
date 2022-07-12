@@ -21,10 +21,10 @@ module.exports = {
    * kế thừa các cấu hình đã có sẵn
    */
   extends: [
-    "plugin:vue/essential",
-    "eslint:recommended",
-    "@vue/typescript/recommended",
-    "plugin:prettier/recommended",
+    'plugin:vue/essential',
+    'eslint:recommended',
+    '@vue/typescript/recommended',
+    'plugin:prettier/recommended',
   ],
   /**
    * theo mặc định sẽ convert qua es5
@@ -46,7 +46,7 @@ module.exports = {
         ...
         var t : String = "123" // error here -> replace string
      */
-    "@typescript-eslint/ban-types": "off",
+    '@typescript-eslint/ban-types': 'off',
     /**
      * cài đặt phân cách
      
@@ -76,75 +76,76 @@ module.exports = {
         false
 
      */
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
       {
         multiline: {
-          delimiter: "semi",
+          delimiter: 'semi',
         },
         singleline: {
-          delimiter: "comma",
+          delimiter: 'comma',
         },
       },
     ],
     /**
      * cho phép sử dụng kiểu dữ liệu là any
      */
-    "@typescript-eslint/no-explicit-any": "off",
+    '@typescript-eslint/no-explicit-any': 'off',
     /**
      * cho phép những kiểu dữ liệu có thể lấy giá trị từ request
        var foo = require('foo');
        const foo = require('foo');
        let foo = require('foo');
      */
-    "@typescript-eslint/no-var-require": "off",
+    '@typescript-eslint/no-var-require': 'off',
     // const a = async() => never
     // const a = async () => always;
-    "space-before-function-paren": ["error", "never"],
+    'space-before-function-paren': ['error', 'never'],
     // không có khoáchr cách giữa đâu và cuối trong mảng , default : never
-    "vue/array-bracket-spacing": "error",
+    'vue/array-bracket-spacing': 'error',
     // khoảng cách đầu cuối trong arrow function
     // default: { "before": true, "after": true }
     // true : one or more spaces
     // false : no space
-    "vue/arrow-spacing": "error",
+    'vue/arrow-spacing': 'error',
     // khoảng cách trong 1 khối
     // mặc định always
-    "vue/block-spacing": "error",
+    'vue/block-spacing': 'error',
     // cấu hình khối . mặc định 1tbs
     //function foo() {
     //return true;
     //}
-    "vue/brace-style": "error",
+    'vue/brace-style': 'error',
     // quy tắc đặt tên , mặc định always
-    "vue/camelcase": "error",
+    'vue/camelcase': 'error',
     // cho phép có dấy phẩy ở object hay arr hay không
     // mặc định "never"
-    "vue/comma-dangle": "error",
+    'vue/comma-dangle': 'error',
     // thực thi các component theo kebab-case
     // ThanhHuy -> thanh-huy
-    "vue/component-name-in-template-casing": ["error", "kebab-case"],
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     // thực hiện so sánh === và !==
     // mặc định always
-    "vue/eqeqeq": "error",
+    'vue/eqeqeq': 'error',
     // thực thi mã , yêu cầu ít nhất có 1 khoảng trống giữa key và value
     // mặc định :["error", { "beforeColon": false }]
     // false : không yêu cầu
     // true" có
-    "vue/key-spacing": "error",
+    'vue/key-spacing': 'error',
     // xác định name trong file phải giống với tên phải theo camelCase , hoặc keba-case
-    "vue/match-component-file-name": "error",
+    'vue/match-component-file-name': 'error',
     // xác định khoảng trống sau dấu ngoặc nhọn
     // mặc định: "never"
-    "vue/object-curly-spacing": "error",
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    'vue/object-curly-spacing': 'error',
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'prettier/prettier': ['error', { singleQuote: true }],
   },
   overrides: [
     {
       files: [
-        "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)",
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
       ],
       env: {
         jest: true,
