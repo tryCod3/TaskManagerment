@@ -43,6 +43,12 @@ export const routes: Array<RouteConfig> = [
     component: HomeView,
     meta: { hidden: true },
   },
+  {
+    path: '*',
+    name: 'error',
+    redirect: '/404',
+    meta: { hidden: true },
+  },
 ];
 
 export const asyncRoute: Array<RouteConfig> = [
