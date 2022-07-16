@@ -51,7 +51,7 @@ export const routes: Array<RouteConfig> = [
   },
 ];
 
-export const asyncRoute: Array<RouteConfig> = [
+export const asyncRoutes: Array<RouteConfig> = [
   {
     path: '/account',
     name: 'account',
@@ -146,10 +146,21 @@ export const asyncRoute: Array<RouteConfig> = [
   },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-});
+const createRouter = () => {
+  return new VueRouter({
+    mode: 'history',
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition;
+      } else {
+        return { x: 0, y: 0 };
+      }
+    },
+    base: process.env.BASE_URL,
+    routes,
+  });
+};
+
+const router = createRouter();
 
 export default router;

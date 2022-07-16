@@ -11,6 +11,8 @@ import router from './router';
 import store from './store';
 import i18n from '@/lang';
 
+import '@/permission';
+
 // element UI
 Vue.use(ElementUI, {
   i18n: (key: string, value: string) => i18n.t(key, value),
