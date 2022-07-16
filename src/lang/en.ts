@@ -1,6 +1,6 @@
 export default {
-	logio: {
-		username: "Account",
-		password: "Password",
-	},
+  logio: {
+    username: 'Account',
+    password: 'Password',
+  },
 };
