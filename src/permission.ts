@@ -6,4 +6,5 @@ router.beforeEach((to, from, next) => {
   PermissionModule.dymamicRouters.forEach((route) => {
     router.addRoute(route);
   });
+  next();
 });

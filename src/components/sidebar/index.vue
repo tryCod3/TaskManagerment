@@ -27,7 +27,13 @@
 
 <script lang="ts">
 import { Vue } from 'vue-property-decorator';
-export default class SideBarComp extends Vue {
+import { PermissionModule } from '@/store/modules/permission';
+
+export default class extends Vue {
+  get routers() {
+    return PermissionModule.routers;
+  }
+
   // method
   handleOpen(key: string, keyPath: string) {
     console.log(key, keyPath);

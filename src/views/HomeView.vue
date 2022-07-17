@@ -13,11 +13,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-import SideBar from '@/components/sidebar/SideBarComp.vue';
+import SideBar from '@/components/sidebar/index.vue';
 @Component({
   components: {
-    HelloWorld,
     SideBar,
   },
 })
