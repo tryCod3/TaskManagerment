@@ -69,7 +69,7 @@ export const asyncRoutes: Array<RouteConfig> = [
         name: 'my-infor',
         component: HomeView,
         meta: {
-          title: 'my-infor',
+          title: 'my infor',
           roles: ['user', 'admin'],
         },
       },
@@ -87,7 +87,7 @@ export const asyncRoutes: Array<RouteConfig> = [
             name: 'list-user',
             component: HomeView,
             meta: {
-              title: 'list-user',
+              title: 'list user',
               roles: ['admin'],
             },
           },
@@ -96,7 +96,7 @@ export const asyncRoutes: Array<RouteConfig> = [
             name: 'permission-user',
             component: HomeView,
             meta: {
-              title: 'permission-user',
+              title: 'permission user',
               roles: ['admin'],
             },
           },
