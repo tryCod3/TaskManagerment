@@ -141,6 +141,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'prettier/prettier': ['error', { singleQuote: true }],
     'no-unused-vars': ['warn', { vars: 'all' }],
+    '@typescript-eslint/no-this-alias': 'off',
   },
   overrides: [
     {
