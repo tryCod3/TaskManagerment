@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
 import Layout from '../layout/index.vue';
 
 Vue.use(VueRouter);
@@ -18,25 +17,21 @@ export const routes: Array<RouteConfig> = [
   {
     path: '/login',
     name: 'login',
-    component: HomeView,
     meta: { hidden: true },
   },
   {
     path: '/register',
     name: 'register',
-    component: HomeView,
     meta: { hidden: true },
   },
   {
     path: '/404',
     name: 'not-found',
-    component: HomeView,
     meta: { hidden: true },
   },
   {
     path: '/401',
     name: 'un-authorized',
-    component: HomeView,
     meta: { hidden: true },
   },
   {
@@ -55,7 +50,10 @@ export const routes: Array<RouteConfig> = [
       {
         path: 'dashboard',
         name: 'dashboard',
-        component: HomeView,
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard-logio" */ '@/views/Logio/index.vue'
+          ),
         meta: {
           title: 'Dashboard',
           icon: 'dashboard',
@@ -81,7 +79,6 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'my-infor', // /account/information
         name: 'my-infor',
-        component: HomeView,
         meta: {
           title: 'my infor',
           roles: ['user', 'admin'],
@@ -90,7 +87,6 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'manager',
         name: 'manager',
-        component: HomeView,
         meta: {
           title: 'Manager',
           roles: ['admin'],
@@ -99,7 +95,6 @@ export const asyncRoutes: Array<RouteConfig> = [
           {
             path: 'list-user',
             name: 'list-user',
-            component: HomeView,
             meta: {
               title: 'list user',
               roles: ['admin'],
@@ -108,7 +103,6 @@ export const asyncRoutes: Array<RouteConfig> = [
           {
             path: 'permission-user',
             name: 'permission-user',
-            component: HomeView,
             meta: {
               title: 'permission user',
               roles: ['admin'],
@@ -133,7 +127,6 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'list-task',
         name: 'listtask',
-        component: HomeView,
         meta: {
           title: 'List Task',
           roles: ['admin', 'developer'],
@@ -142,7 +135,6 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'add-task',
         name: 'addtask',
-        component: HomeView,
         meta: {
           title: 'Add Task',
           roles: ['admin'],
@@ -151,7 +143,6 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'my-task',
         name: 'mytask',
-        component: HomeView,
         meta: {
           title: 'My Task',
           roles: ['admin', 'user'],
