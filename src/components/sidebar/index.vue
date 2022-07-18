@@ -5,6 +5,7 @@
         v-for="router in routers"
         :key="router.path"
         :item="router"
+        :path="router.path"
       />
     </el-menu>
   </div>
@@ -23,6 +24,7 @@ import SidebarItem from './SidebarItem.vue';
 })
 export default class extends Vue {
   get routers() {
+    console.log(PermissionModule.routers);
     return PermissionModule.routers;
   }
 
