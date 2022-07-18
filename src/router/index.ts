@@ -49,6 +49,15 @@ export const routes: Array<RouteConfig> = [
     redirect: '/404',
     meta: { hidden: true },
   },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: HomeView,
+    meta: {
+      title: 'Dashboard',
+      icon: 'dashboard',
+    },
+  },
 ];
 
 export const asyncRoutes: Array<RouteConfig> = [
@@ -61,7 +70,7 @@ export const asyncRoutes: Array<RouteConfig> = [
       title: 'Account',
       roles: ['user', 'admin'],
       alwaysShow: true,
-      icon: 'account',
+      icon: 'user',
     },
     children: [
       {
@@ -105,11 +114,12 @@ export const asyncRoutes: Array<RouteConfig> = [
     ],
   },
   {
-    path: 'task',
+    path: '/task',
     name: 'task',
     redirect: '/task/list-task',
     component: HomeView,
     meta: {
+      icon: 'list',
       title: 'Task',
       roles: ['admin', 'user'],
       alwaysShow: true,
