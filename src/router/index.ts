@@ -1,15 +1,11 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import Layout from '../layout/index.vue';
 
 Vue.use(VueRouter);
 
 export const routes: Array<RouteConfig> = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView,
-  },
   {
     path: '/about',
     name: 'about',
@@ -50,13 +46,22 @@ export const routes: Array<RouteConfig> = [
     meta: { hidden: true },
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: HomeView,
-    meta: {
-      title: 'Dashboard',
-      icon: 'dashboard',
-    },
+    path: '',
+    name: 'Home',
+    component: Layout,
+    redirect: '/dashboard',
+    meta: {},
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: HomeView,
+        meta: {
+          title: 'Dashboard',
+          icon: 'dashboard',
+        },
+      },
+    ],
   },
 ];
 
@@ -65,7 +70,7 @@ export const asyncRoutes: Array<RouteConfig> = [
     path: '/account',
     name: 'account',
     redirect: '/account/my-infor',
-    component: HomeView,
+    component: Layout,
     meta: {
       title: 'Account',
       roles: ['user', 'admin'],
@@ -117,7 +122,7 @@ export const asyncRoutes: Array<RouteConfig> = [
     path: '/task',
     name: 'task',
     redirect: '/task/list-task',
-    component: HomeView,
+    component: Layout,
     meta: {
       icon: 'list',
       title: 'Task',
