@@ -6,17 +6,12 @@ Vue.use(VueRouter);
 
 export const routes: Array<RouteConfig> = [
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-  },
-  {
     path: '/login',
     name: 'login',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard-logio" */ '@/views/Logio/index.vue'
+      ),
     meta: { hidden: true },
   },
   {
@@ -40,8 +35,9 @@ export const routes: Array<RouteConfig> = [
     redirect: '/404',
     meta: { hidden: true },
   },
+
   {
-    path: '',
+    path: '/',
     name: 'Home',
     component: Layout,
     redirect: '/dashboard',
@@ -52,11 +48,12 @@ export const routes: Array<RouteConfig> = [
         name: 'dashboard',
         component: () =>
           import(
-            /* webpackChunkName: "dashboard-logio" */ '@/views/Logio/index.vue'
+            /* webpackChunkName: "dashboard-logio" */ '@/views/Dashboard.vue'
           ),
         meta: {
           title: 'Dashboard',
           icon: 'dashboard',
+          isRoot: true,
         },
       },
     ],
@@ -71,7 +68,7 @@ export const asyncRoutes: Array<RouteConfig> = [
     component: Layout,
     meta: {
       title: 'Account',
-      roles: ['user', 'admin'],
+      roles: ['user', 'admin', 'developer'],
       alwaysShow: true,
       icon: 'user',
     },
@@ -81,7 +78,7 @@ export const asyncRoutes: Array<RouteConfig> = [
         name: 'my-infor',
         meta: {
           title: 'my infor',
-          roles: ['user', 'admin'],
+          roles: ['user', 'admin', 'developer'],
         },
       },
       {
@@ -120,7 +117,7 @@ export const asyncRoutes: Array<RouteConfig> = [
     meta: {
       icon: 'list',
       title: 'Task',
-      roles: ['admin', 'user'],
+      roles: ['admin', 'user', 'developer'],
       alwaysShow: true,
     },
     children: [
@@ -145,7 +142,7 @@ export const asyncRoutes: Array<RouteConfig> = [
         name: 'mytask',
         meta: {
           title: 'My Task',
-          roles: ['admin', 'user'],
+          roles: ['admin', 'user', 'developer'],
         },
       },
     ],
