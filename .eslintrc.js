@@ -100,7 +100,7 @@ module.exports = {
     '@typescript-eslint/no-var-require': 'off',
     // const a = async() => never
     // const a = async () => always;
-    'space-before-function-paren': ['error', 'never'],
+    'space-before-function-paren': ['warn', 'never'],
     // không có khoáchr cách giữa đâu và cuối trong mảng , default : never
     'vue/array-bracket-spacing': 'error',
     // khoảng cách đầu cuối trong arrow function
