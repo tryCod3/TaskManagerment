@@ -12,12 +12,43 @@ import { routes, asyncRoutes } from '@/router';
 export interface IPermissionState {
   routers: RouteConfig[];
   dymamicRouters: RouteConfig[];
+  isSetPermission: boolean;
 }
+
+const isConstanRoles = (roles: string[], rolesRoute: string[]) => {
+  for (let i = 0; i < roles.length; i++) {
+    if (rolesRoute.includes(roles[i])) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const splitRouterForRole = (
+  arr: RouteConfig[],
+  roles: string[]
+): RouteConfig[] => {
+  const arrSplitRouters: RouteConfig[] = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].meta && arr[i].meta?.roles) {
+      const r = { ...arr[i] };
+      const checkRole = isConstanRoles(roles, arr[i].meta?.roles);
+      if (checkRole) {
+        if (r.children) {
+          r.children = splitRouterForRole(r.children, roles);
+        }
+        arrSplitRouters.push(r);
+      }
+    }
+  }
+  return arrSplitRouters;
+};
 
 @Module({ dynamic: true, name: 'permission', store })
 class Permission extends VuexModule implements IPermissionState {
   routers: RouteConfig[] = [];
   dymamicRouters: RouteConfig[] = [];
+  isSetPermission = false;
 
   @Mutation
   SET_ROUTERS(routers: RouteConfig[]): void {
@@ -25,14 +56,21 @@ class Permission extends VuexModule implements IPermissionState {
     this.dymamicRouters = routers;
   }
 
+  @Mutation
+  SET_IS_PERMISSIONS(isPer: boolean): void {
+    this.isSetPermission = isPer;
+  }
+
   @Action
   generateRoutes(roles: string[]) {
-    console.log(roles);
     if (roles.includes('admin')) {
       this.SET_ROUTERS(asyncRoutes);
     } else {
-      // find asyncRoutes for roles
+      const splitRoles = splitRouterForRole(asyncRoutes, roles);
+      console.log('=>', splitRoles);
+      this.SET_ROUTERS(splitRoles);
     }
+    this.SET_IS_PERMISSIONS(true);
   }
 }
 
