@@ -1,6 +1,6 @@
 <template>
   <div v-if="item.meta && !item.meta.hidden">
-    <el-menu-item v-if="oneChild !== undefined">
+    <el-menu-item v-if="oneChild?.meta?.isRoot !== undefined">
       <svg-icon
         v-if="oneChild.meta && oneChild.meta.icon"
         :name="oneChild.meta.icon"
