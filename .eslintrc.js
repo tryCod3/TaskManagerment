@@ -49,7 +49,7 @@ module.exports = {
     '@typescript-eslint/ban-types': 'off',
     /**
      * cài đặt phân cách
-     
+
       interface Foo {
           name: string;
           greet(): void;
@@ -65,11 +65,11 @@ module.exports = {
       multilineDetection : như thế nào là nhiều dòng
 
       2.option:
-      
+
       delimiter: mỗi paramester phải đi với
         comma : dấu ,
         semi : dấu ;
-        none: không gì cả // không áp dụng cho single line 
+        none: không gì cả // không áp dụng cho single line
 
       requireLast: xác định xem param cuối cùng có dấu cách hay không
         true
@@ -100,7 +100,7 @@ module.exports = {
     '@typescript-eslint/no-var-require': 'off',
     // const a = async() => never
     // const a = async () => always;
-    'space-before-function-paren': ['error', 'never'],
+    'space-before-function-paren': ['warn', 'never'],
     // không có khoáchr cách giữa đâu và cuối trong mảng , default : never
     'vue/array-bracket-spacing': 'error',
     // khoảng cách đầu cuối trong arrow function
@@ -140,7 +140,8 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'prettier/prettier': ['error', { singleQuote: true }],
-    'no-unused-vars': ['error', { vars: 'all' }],
+    'no-unused-vars': ['warn', { vars: 'all' }],
+    '@typescript-eslint/no-this-alias': 'off',
   },
   overrides: [
     {
