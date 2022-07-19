@@ -29,3 +29,11 @@ export const callApiLogin = async (account: string, password: string) => {
     });
   });
 };
+
+export const callApiResetToken = async () => {
+  return new Promise<any>((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 1000);
+  });
+};

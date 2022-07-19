@@ -6,7 +6,8 @@ import {
   Module,
 } from 'vuex-module-decorators';
 import store from '@/store';
-import { callApiLogin } from '@/api';
+import { callApiLogin, callApiResetToken } from '@/api';
+import { PermissionModule } from './permission';
 
 export interface IUserState {
   account: string;
@@ -33,6 +34,15 @@ class User extends VuexModule implements IUserState {
     this.token = user.token;
   }
 
+  @Mutation
+  REFRESH() {
+    this.account = '';
+    this.password = '';
+    this.age = 0;
+    this.roles = [];
+    this.token = '';
+  }
+
   @Action
   public async Login(userInfo: {
     account: string;
@@ -44,6 +54,13 @@ class User extends VuexModule implements IUserState {
     if (res.success)
       this.SET_INFO({ ...userInfo, token: res.token, roles: res.roles });
     return res;
+  }
+
+  @Action
+  public async Logout() {
+    await callApiResetToken();
+    this.REFRESH();
+    PermissionModule.refresh();
   }
 }
 

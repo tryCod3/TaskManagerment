@@ -61,6 +61,13 @@ class Permission extends VuexModule implements IPermissionState {
     this.isSetPermission = isPer;
   }
 
+  @Mutation
+  REFRESH() {
+    this.routers = [];
+    this.dymamicRouters = [];
+    this.isSetPermission = false;
+  }
+
   @Action
   generateRoutes(roles: string[]) {
     if (roles.includes('admin')) {
@@ -71,6 +78,11 @@ class Permission extends VuexModule implements IPermissionState {
       this.SET_ROUTERS(splitRoles);
     }
     this.SET_IS_PERMISSIONS(true);
+  }
+
+  @Action
+  refresh() {
+    this.REFRESH();
   }
 }
 

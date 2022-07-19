@@ -5,6 +5,7 @@
       title="Logout"
       type="warning"
       :action="handleLogout"
+      :loading="loading"
     ></button-comp>
   </div>
 </template>
@@ -21,8 +22,16 @@ import { UserModule } from '@/store/modules/user';
   },
 })
 export default class extends Vue {
-  private handleLogout() {
-    console.log('handleLogout');
+  private loading = false;
+
+  private async handleLogout() {
+    this.loading = true;
+    await UserModule.Logout();
+    setTimeout(() => {
+      this.loading = false;
+      alert('Bạn Đã Đăng Xuất Thành Công');
+      this.$router.push({ path: '/login' });
+    }, 1000);
   }
 }
 </script>
