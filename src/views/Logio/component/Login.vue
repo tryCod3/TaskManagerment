@@ -39,6 +39,8 @@ import { Vue, Component } from 'vue-property-decorator';
 import ButtonComp from '@/components/button/index.vue';
 import { ElForm } from 'element-ui/types/form';
 import { Input } from 'element-ui';
+import { UserModule } from '@/store/modules/user';
+
 @Component({
   name: 'Login',
   components: {
@@ -49,7 +51,7 @@ export default class extends Vue {
   private modelLogin = {
     account: '',
     password: '',
-    age: '18',
+    age: 18,
   };
 
   private loading = false;
@@ -88,12 +90,20 @@ export default class extends Vue {
   };
 
   private handleLogin() {
-    (this.$refs.modelLogin as ElForm).validate((valid) => {
+    (this.$refs.modelLogin as ElForm).validate(async (valid) => {
       if (valid) {
         this.loading = true;
+        const userInfo = { ...this.modelLogin };
+        const res = await UserModule.Login(userInfo);
+        if (res.success) {
+          alert('Đăng nhập thành công');
+          this.$router.push({ path: '/' });
+        } else {
+          alert('Tài Khoản của bạn không chính xác');
+        }
         setTimeout(() => {
           this.loading = false;
-        }, 2000);
+        }, 1000);
       } else {
         console.log('error submit!!');
         return false;
