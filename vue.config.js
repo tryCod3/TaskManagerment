@@ -1,4 +1,5 @@
 const { defineConfig } = require('@vue/cli-service');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 const devServerPort = 8080;
 const mockServerPort = 5000;
@@ -37,6 +38,12 @@ module.exports = defineConfig({
           ws: true, // web socket mode
           changeOrigin: true, // change origin
         },
+      },
+    },
+    plugins: [new NodePolyfillPlugin()],
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
       },
     },
   },

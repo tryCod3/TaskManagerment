@@ -6,18 +6,22 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
-        "lint": "vue-cli-service lint \"./src/**/*.{ts,tsx}\"",
-        "format": "prettier --write \"./src/**/*.{ts,tsx}\"",
-        "postinstall": "husky install"
+        "lint": "vue-cli-service lint \"./src/**/*.{vue,ts}\"",
+        "format": "prettier --write  \"./src/**/*.{vue,ts}\"",
+        "postinstall": "husky install",
+        "svg": "vsvg -s ./src/icons/svg -t ./src/icons/components --ext ts --es6"
     },
     "dependencies": {
         "core-js": "^3.8.3",
         "element-ui": "^2.15.9",
+        "node-polyfill-webpack-plugin": "^2.0.0",
+        "path-browserify": "^1.0.1",
         "vue": "^2.6.14",
         "vue-class-component": "^7.2.3",
         "vue-i18n": "8",
         "vue-property-decorator": "^9.1.2",
         "vue-router": "^3.5.1",
+        "vue-svgicon": "^3.2.9",
         "vuex": "^3.6.2"
     },
     "devDependencies": {
@@ -56,8 +60,7 @@
     "lint-staged": {
         "*.{js,jsx,vue,ts,tsx}": [
             "npm run lint",
-            "npm run format",
-            "git add ."
+            "npm run format"
         ]
     }
 }
