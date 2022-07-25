@@ -76,6 +76,10 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'my-infor', // /account/information
         name: 'my-infor',
+        component: () =>
+          import(
+            /* webpackChunkName: "account-myinfor" */ '@/views/Account/index.vue'
+          ),
         meta: {
           title: 'my infor',
           roles: ['user', 'admin', 'developer'],

@@ -26,4 +26,8 @@ import SideBar from '@/components/sidebar/index.vue';
 export default class extends Vue {}
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.app-main {
+  width: 100%;
+}
+</style>

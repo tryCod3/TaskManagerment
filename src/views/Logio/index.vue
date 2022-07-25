@@ -1,8 +1,5 @@
 <template>
   <el-container direction="vertical">
-    <el-header>
-      <button-comp title="Login" :action="handleActionLogio" />
-    </el-header>
     <el-footer height="100vh">
       <el-row span="24" class="footer">
         <el-col>
@@ -35,5 +32,13 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .footer {
   width: 100%;
+
+  .el-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222222;
+  }
 }
 </style>
