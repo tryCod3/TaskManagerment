@@ -5,6 +5,7 @@ const devServerPort = 8080;
 const mockServerPort = 5000;
 
 module.exports = defineConfig({
+  publicPath: '/', // change publicPath if env = production
   /**
    * nhận boolean or list module
    * if boolean = true : tất cả các file trong node_modules sẽ được đưa tới babel

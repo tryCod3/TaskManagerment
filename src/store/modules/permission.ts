@@ -74,7 +74,6 @@ class Permission extends VuexModule implements IPermissionState {
       this.SET_ROUTERS(asyncRoutes);
     } else {
       const splitRoles = splitRouterForRole(asyncRoutes, roles);
-      console.log('=>', splitRoles);
       this.SET_ROUTERS(splitRoles);
     }
     this.SET_IS_PERMISSIONS(true);

@@ -8,6 +8,9 @@ import {
 import store from '@/store';
 import { callApiLogin, callApiResetToken } from '@/api';
 import { PermissionModule } from './permission';
+import { UserCookie } from '@/utils/cookies';
+
+const userCookie = UserCookie('user-key');
 
 export interface IUserState {
   account: string;
@@ -32,6 +35,7 @@ class User extends VuexModule implements IUserState {
     this.age = user.age;
     this.roles = user.roles;
     this.token = user.token;
+    userCookie.SET_KEY(JSON.stringify(user));
   }
 
   @Mutation
@@ -41,6 +45,7 @@ class User extends VuexModule implements IUserState {
     this.age = 0;
     this.roles = [];
     this.token = '';
+    userCookie.CLEAR();
   }
 
   @Action
@@ -54,6 +59,31 @@ class User extends VuexModule implements IUserState {
     if (res.success)
       this.SET_INFO({ ...userInfo, token: res.token, roles: res.roles });
     return res;
+  }
+
+  @Action
+  public async getAccount() {
+    const data = userCookie.GET_VALUE();
+    // if cookie and token no live
+    // user no account
+    if (data === undefined && this.token === '') {
+      return null;
+    }
+    // when user load web
+    if (typeof data === 'string' && this.token === '') {
+      const iUser = await JSON.parse(data);
+      this.SET_INFO(iUser);
+      return iUser;
+    }
+    // have account
+    const user: IUserState = {
+      account: this.account,
+      password: this.password,
+      age: this.age,
+      roles: this.roles,
+      token: this.token,
+    };
+    return user;
   }
 
   @Action

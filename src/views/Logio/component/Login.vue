@@ -1,37 +1,40 @@
 <template>
-  <el-form :model="modelLogin" ref="modelLogin" status-icon :rules="rules">
-    <el-form-item label="Account" prop="account">
-      <el-input
-        ref="account"
-        type="text"
-        autocomplete="off"
-        v-model.trim="modelLogin.account"
-      ></el-input>
-    </el-form-item>
-    <el-form-item label="Password" prop="password">
-      <el-input
-        type="password"
-        autocomplete="off"
-        v-model.trim="modelLogin.password"
-      ></el-input>
-    </el-form-item>
-    <el-form-item label="Age" prop="age">
-      <el-input
-        type="number"
-        autocomplete="off"
-        v-model.number="modelLogin.age"
-      >
-      </el-input>
-    </el-form-item>
-    <el-form-item>
-      <button-comp
-        title="Submit"
-        :loading="loading"
-        :plain="true"
-        :action="handleLogin"
-      ></button-comp>
-    </el-form-item>
-  </el-form>
+  <section class="login-container">
+    <h1 style="color: aliceblue">Login</h1>
+    <el-form :model="modelLogin" ref="modelLogin" status-icon :rules="rules">
+      <el-form-item label="Account" prop="account">
+        <el-input
+          ref="account"
+          type="text"
+          autocomplete="off"
+          v-model.trim="modelLogin.account"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Password" prop="password">
+        <el-input
+          type="password"
+          autocomplete="off"
+          v-model.trim="modelLogin.password"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Age" prop="age">
+        <el-input
+          type="number"
+          autocomplete="off"
+          v-model.number="modelLogin.age"
+        >
+        </el-input>
+      </el-form-item>
+      <el-form-item>
+        <button-comp
+          title="Submit"
+          :loading="loading"
+          :plain="true"
+          :action="handleLogin"
+        ></button-comp>
+      </el-form-item>
+    </el-form>
+  </section>
 </template>
 
 <script lang="ts">
@@ -49,8 +52,8 @@ import { UserModule } from '@/store/modules/user';
 })
 export default class extends Vue {
   private modelLogin = {
-    account: '',
-    password: '',
+    account: 'Admin',
+    password: '123456',
     age: 18,
   };
 
@@ -84,20 +87,40 @@ export default class extends Vue {
   };
 
   private rules = {
-    password: [{ validator: this.passwordValidate, trigger: 'blur' }],
-    age: [{ validator: this.ageValidate, trigger: 'blur' }],
-    account: [{ validator: this.accountValidate, trigger: 'blur' }],
+    password: [
+      {
+        validator: this.passwordValidate,
+        trigger: 'blur',
+      },
+    ],
+    age: [
+      {
+        validator: this.ageValidate,
+        trigger: 'blur',
+      },
+    ],
+    account: [
+      {
+        validator: this.accountValidate,
+        trigger: 'blur',
+      },
+    ],
   };
 
   private handleLogin() {
     (this.$refs.modelLogin as ElForm).validate(async (valid) => {
       if (valid) {
         this.loading = true;
-        const userInfo = { ...this.modelLogin };
+        const userInfo = {
+          ...this.modelLogin,
+        };
         const res = await UserModule.Login(userInfo);
         if (res.success) {
           alert('Đăng nhập thành công');
-          this.$router.push({ path: '/' });
+          this.$router.push({
+            path: '/',
+            replace: true,
+          });
         } else {
           alert('Tài Khoản của bạn không chính xác');
         }
@@ -119,9 +142,11 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.el-form {
-  .el-form-item {
-    width: 400px;
+.login-container {
+  .el-form {
+    .el-form-item {
+      width: 400px;
+    }
   }
 }
 </style>

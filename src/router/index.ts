@@ -19,22 +19,6 @@ export const routes: Array<RouteConfig> = [
     name: 'register',
     meta: { hidden: true },
   },
-  {
-    path: '/404',
-    name: 'not-found',
-    meta: { hidden: true },
-  },
-  {
-    path: '/401',
-    name: 'un-authorized',
-    meta: { hidden: true },
-  },
-  {
-    path: '*',
-    name: 'error',
-    redirect: '/404',
-    meta: { hidden: true },
-  },
 
   {
     path: '/',
@@ -58,6 +42,22 @@ export const routes: Array<RouteConfig> = [
       },
     ],
   },
+  {
+    path: '/404',
+    name: 'not-found',
+    meta: { hidden: true },
+  },
+  {
+    path: '/401',
+    name: 'un-authorized',
+    meta: { hidden: true },
+  },
+  {
+    path: '*',
+    name: 'error',
+    redirect: '/404',
+    meta: { hidden: true },
+  },
 ];
 
 export const asyncRoutes: Array<RouteConfig> = [
@@ -76,6 +76,10 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'my-infor', // /account/information
         name: 'my-infor',
+        component: () =>
+          import(
+            /* webpackChunkName: "account-myinfor" */ '@/views/Account/index.vue'
+          ),
         meta: {
           title: 'my infor',
           roles: ['user', 'admin', 'developer'],

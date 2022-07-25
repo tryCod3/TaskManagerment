@@ -41,12 +41,21 @@ import { RouteConfig } from 'vue-router';
   name: 'SidebarItem',
 })
 export default class extends Vue {
-  @Prop({ required: true }) private item!: RouteConfig;
-  @Prop({ default: '' }) private path!: string;
+  @Prop({
+    required: true,
+  })
+  private item!: RouteConfig;
+  @Prop({
+    default: '',
+  })
+  private path!: string;
 
   get oneChild() {
     if (!this.item.children) {
-      return { ...this.item, path: '' };
+      return {
+        ...this.item,
+        path: '',
+      };
     }
     if (
       this.item.children &&
@@ -69,23 +78,29 @@ export default class extends Vue {
 <style lang="scss">
 .el-menu {
   background-color: rgb(33, 34, 36);
+
   .el-submenu__title {
     color: rgb(227, 207, 30);
   }
+
   .el-menu-item > a {
     color: white;
     text-decoration: none;
   }
+
   .el-submenu__title:hover {
     background-color: rgb(134, 131, 131);
+
     .el-icon-arrow-down {
       color: black;
     }
   }
+
   .el-menu-item:hover {
     background-color: rgb(183, 179, 179);
   }
 }
+
 .el-menu--inline {
   background-color: rgb(72, 68, 68);
 }
