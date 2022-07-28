@@ -78,7 +78,7 @@ export const asyncRoutes: Array<RouteConfig> = [
         name: 'my-infor',
         component: () =>
           import(
-            /* webpackChunkName: "account-myinfor" */ '@/views/Account/index.vue'
+            /* webpackChunkName: "account-myinfor" */ '@/views/Account/component/Infomation/MyInfomation.vue'
           ),
         meta: {
           title: 'my infor',
@@ -88,6 +88,10 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: 'manager',
         name: 'manager',
+        component: () =>
+          import(
+            /* webpackChunkName: "account-manager" */ '@/views/Account/component/index.vue'
+          ),
         meta: {
           title: 'Manager',
           roles: ['admin'],
@@ -96,6 +100,10 @@ export const asyncRoutes: Array<RouteConfig> = [
           {
             path: 'list-user',
             name: 'list-user',
+            component: () =>
+              import(
+                /* webpackChunkName: "account-listuser" */ '@/views/Account/component/Manager/ManagerUser.vue'
+              ),
             meta: {
               title: 'list user',
               roles: ['admin'],
